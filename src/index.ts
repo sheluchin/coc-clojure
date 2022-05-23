@@ -28,13 +28,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
 	const client = createClient();
 	context.subscriptions.push(services.registLanguageClient(client));
 
-	context.subscriptions.push(
-		languages.registerSignatureHelpProvider(
-			documentSelector,
-			new ClojureSignatureHelpProvider(client),
-			["(", " "]
-		)
-	);
+	context.subscriptions.push(new ClojureSignatureHelpProvider(client));
+	logger.info("set up signature provider");
 
 	registerCommands(context, client);
 
